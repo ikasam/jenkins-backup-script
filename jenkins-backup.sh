@@ -73,14 +73,9 @@ if [ "$(ls -A $JENKINS_HOME/jobs/)" ] ; then
 fi
 
 cd "$TMP_DIR"
-tar -czvf "$TMP_TAR_NAME" "$ARC_NAME/"*
-exitcode=$?
-if [ "$exitcode" != "1" ] && [ "$exitcode" != "0" ]; then
-    echo "Error!" >&2
-    exit $exitcode
-fi
+tar -czvf "$TMP_TAR_NAME" "$ARC_NAME/"* || exitcode=$?
 cd -
 mv -f "$TMP_TAR_NAME" "$DEST_FILE"
 rm -rf "$ARC_DIR"
 
-exit 0
+exit $exitcode
